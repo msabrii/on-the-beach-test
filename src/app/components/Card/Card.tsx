@@ -1,6 +1,8 @@
 "use client";
 
 import { HolidayData } from "@/app/page";
+import renderDate from "@/utils/renderDate";
+import renderPrice from "@/utils/renderPrice";
 import {
   Disclosure,
   DisclosureButton,
@@ -15,19 +17,6 @@ const Card = ({ holiday }: { holiday: HolidayData }) => {
   const { regionName, countryName, starRating, overview, name, image } = resort;
   const { lengthOfStay, price, party } = bookingDetails;
   const { departureAirport, departureDate } = flightDetails;
-
-  const renderPrice = (price: number, currency: string) => {
-    switch (currency) {
-      case "GBP":
-        return `£${price.toFixed(2)}`;
-      case "USD":
-        return `$${price.toFixed(2)}`;
-      case "EUR":
-        return `€${price.toFixed(2)}`;
-      default:
-        return `${price.toFixed(2)} ${currency}`;
-    }
-  };
 
   const renderStarRating = (numStars: number) => "⭐️".repeat(numStars);
 
@@ -62,14 +51,8 @@ const Card = ({ holiday }: { holiday: HolidayData }) => {
             )}
           </span>
           <span className="text-black text-xs">
-            <span className="font-bold">
-              {new Date(departureDate).toLocaleDateString("en-GB", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
-            </span>{" "}
-            for <span className="font-bold">{lengthOfStay}</span> days
+            <span className="font-bold">{renderDate(departureDate)}</span> for{" "}
+            <span className="font-bold">{lengthOfStay}</span> days
           </span>
           <span className="text-black text-xs">
             Departing from <span className="font-bold">{departureAirport}</span>
