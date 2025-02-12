@@ -32,11 +32,11 @@ const Card = ({ holiday }: { holiday: HolidayData }) => {
   const renderStarRating = (numStars: number) => "⭐️".repeat(numStars);
 
   return (
-    <div className="relative bg-white max-w-[800px]">
+    <div className="relative bg-white lg:max-w-[800px]">
       <div className="flex flex-col sm:flex-row">
         {/* Image */}
-        <div className="relative w-full sm:w-[500px] shrink-0 h-[260px]">
-          <Image src={image.url} alt={name} fill />
+        <div className="relative w-full sm:w-[400px] lg:w-[500px] shrink-0 h-[260px]">
+          <Image src={image.url} alt={name} fill className="object-cover" />
         </div>
         {/* Sidebar */}
         <div className="flex p-4 items-start justify-center flex-col gap-1 w-full text-dark-blue">
