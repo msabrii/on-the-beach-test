@@ -1,6 +1,6 @@
 "use client";
 
-import { HolidayData } from "@/app/page";
+import { HolidayData } from "@/app/types/HolidayData";
 import renderDate from "@/utils/renderDate";
 import renderPrice from "@/utils/renderPrice";
 import {
@@ -21,7 +21,7 @@ const Card = ({ holiday }: { holiday: HolidayData }) => {
   const renderStarRating = (numStars: number) => "⭐️".repeat(numStars);
 
   return (
-    <div className="relative bg-white lg:max-w-[800px]">
+    <div className="relative bg-white lg:max-w-[800px]" data-testid="card">
       <div className="flex flex-col sm:flex-row">
         {/* Image */}
         <div className="relative w-full sm:w-[400px] lg:w-[500px] shrink-0 h-[260px]">

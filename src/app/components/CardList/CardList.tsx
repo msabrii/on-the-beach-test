@@ -1,8 +1,8 @@
 "use client";
 
-import { HolidayData } from "@/app/page";
 import React from "react";
 import Card from "../Card/Card";
+import { HolidayData } from "@/app/types/HolidayData";
 
 const CardList = ({ cards }: { cards: HolidayData[] }) => {
   return (

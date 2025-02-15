@@ -4,31 +4,7 @@ import Image from "next/image";
 import CardList from "./components/CardList/CardList";
 import { useEffect, useState, useCallback } from "react";
 import SortOptions from "./components/SortOptions/SortOptions";
-
-export interface HolidayData {
-  resort: {
-    id: string;
-    name: string;
-    regionName: string;
-    countryName: string;
-    starRating: number;
-    overview: string;
-    image: { url: string };
-  };
-  flightDetails: {
-    departureAirport: string;
-    departureDate: string;
-  };
-  bookingDetails: {
-    party: {
-      adults: number;
-      children?: number;
-      infants?: number;
-    };
-    lengthOfStay: 7;
-    price: { amount: number; currency: string };
-  };
-}
+import { HolidayData } from "./types/HolidayData";
 
 const Home = () => {
   const [sortOption, setSortOption] = useState("alphabetic");
@@ -60,19 +36,23 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("/api/holidays");
+      try {
+        const response = await fetch("/api/holidays");
 
-      if (!response.ok) {
-        console.log(response.statusText);
-        const errorText = await response.json();
-        setError(errorText);
+        if (!response.ok) {
+          const errorText = await response.json();
+          setError(errorText);
+          return;
+        }
+
+        const result: HolidayData[] = await response.json();
+        setData(sortData(result));
+      } catch (error) {
+        console.error("Fetch error:", error);
+        setError({ error: "An unexpected error occurred." });
+      } finally {
         setIsLoading(false);
-        throw new Error("Network response was not ok");
       }
-
-      const result: HolidayData[] = await response.json();
-      setData(sortData(result));
-      setIsLoading(false);
     };
 
     fetchData();
@@ -81,8 +61,6 @@ const Home = () => {
   useEffect(() => {
     setData((prev) => prev && sortData(prev));
   }, [sortOption, sortData]);
-
-  console.log(sortOption);
 
   return (
     <div className="grid grid-cols-12 max-w-[1440px] pt-16 gap-6 mx-auto w-full px-4 sm:px-8 xl:px-16">
