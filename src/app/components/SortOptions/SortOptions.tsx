@@ -12,6 +12,7 @@ const SortOptions = ({
     <div className="flex flex-col col-span-12 sm:col-span-4 lg:col-span-3">
       <button
         type="button"
+        data-testid="sort-alphabetic"
         className={cn("px-4 py-2 bg-white text-left text-dark-blue", {
           "bg-dark-blue text-white": currentSortOption === "alphabetic",
         })}
@@ -23,6 +24,7 @@ const SortOptions = ({
       </button>
       <button
         type="button"
+        data-testid="sort-price"
         className={cn("px-4 py-2 bg-white text-left text-dark-blue", {
           "bg-dark-blue text-white": currentSortOption === "price",
         })}
@@ -34,6 +36,7 @@ const SortOptions = ({
       </button>
       <button
         type="button"
+        data-testid="sort-star"
         className={cn("px-4 py-2 bg-white text-left text-dark-blue", {
           "bg-dark-blue text-white": currentSortOption === "star",
         })}
